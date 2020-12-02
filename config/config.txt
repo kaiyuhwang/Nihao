@@ -1,0 +1,66 @@
+# This is an configure file for the main.py
+# for avoiding the mistake, you should use the correct format that we set.
+
+# Common step
+# token_mapping_rule is a rule that maps the relationship between tag and RoBERTa (or BERT), pls set the format as:
+# token_mapping_rule = {'tag1':'[unused1]', ..., 'tagN':'[unusedN]'} N is in the scope of 1 to 50
+token_mapping_rule = {'<pku>': '[unused4]', '/<pku>': '[unused5]',
+                          '<zx>': '[unused6]', '/<zx>': '[unused7]',
+                          '<msr>': '[unused8]', '/<msr>': '[unused9]',
+                          '<ctb>': '[unused10]', '/<ctb>': '[unused11]',
+                          '<sxu>': '[unused12]', '/<sxu>': '[unused13]',
+                          '<udc>': '[unused14]', '/<udc>': '[unused15]',
+                          '<cnc>': '[unused16]', '/<cnc>': '[unused17]',
+                          '<nihao>': '[unused18]', '/<nihao>': '[unused19]',
+                          'X': '[unused1]', '0': '[unused2]', 'M': '[unused3]'}
+# mode : we set four mode in current version. (Multi-train/Multi-test/train/test)
+mode = train
+# seed : DL is in a random environment. Pls set an init seed whatever you want. (btw. I choose my lucky number)
+seed = 812
+# model_name : The path of basic ptm model. It is a dir name! (Train your own model or download from open resource platform.)
+model_name = '../system-model/roberta-wwm-ext'
+# tagset_size : (Default is 4)
+# tagset_size = 4
+# batch_size : (Default is 1. It depends on your device. It may occur an error because of the limit of GPU's memory.)
+batch_size = 64
+# load_file : the (train/test) data
+load_file = '../data/example/single-train.utf8'
+# maxlen : the limit of the max length in the model. (default:60)
+# maxlen = 60
+# special_token : The code will recognize Non-common chararcters as the split point of a sentence. If you want to ignore
+#                 some characters, pls set it into a file. The format of the file is:
+#                 character 1
+#                 ......
+#                 character n
+#                 (one line per character , encoding is 'utf8 without BOM')
+special_token = '../config/specialToken.txt'
+# CUDA_ENV_NUM : If you want to run the code on CUDA, you can set the number of the CPU device. (default:0)
+CUDA_ENV_NUM = 0
+
+# Train step only
+# update_model : If you want to continue training a model, pls set the path of the old model
+# update_model =
+# epochs : (Default is 1. The train epochs)
+epochs = 15
+# model_path : the path of training model where you save. save_model_name: If you want to have a funny name
+# save_model_epochs: the step of epochs you save. For example, if you set 3, the model will be saved on 3, 6, 9...epochs (default:1)
+# save_model_name : the model name will be 'model_path/your-funny-name_current-epochs.pkl' (default:if you omit it, the file will name as _(epoch).txt)
+model_path = '../save-model'
+# save_model_epochs = 1
+save_model_name = 'demo'
+# valid_file : The path of a validation file or (default:None). whether valid in the training step.
+valid_file = '../data/example/single-test.utf8'
+# gold_file : The path of a validation golden file or (default:None). whether valid in the training step. 
+#             In the single criterion process the valid_file == gold_file;
+#             In the multiple criteria process the valid file has an external tag compared with the gold_file
+gold_file = '../data/example/gold.txt'
+# shuffle : (default:) True or False.
+shuffle = True
+# learning_rate : the learning rate at training process (default:2e-05)
+# learning_rate = 0.00002
+
+# Test step only
+# test_model is the model that have already trained by this model.
+test_model = '../save-model/demo_1.pkl'
+# output_file is the model that have already trained by this model.
+output_file = '../data/example/result.txt'
